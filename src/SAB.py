@@ -1,14 +1,17 @@
 import argparse
 from how_to_use_interpreter import USE, HELP
+from scanner import Scanner
 
 def main():
     args = retrieve_arguments()
+    scanner = Scanner()
 
     if len(args.filenames) == 0:
+        scanner.compile_mode = False
         try:
             while True:
                 user_input = input(">> ") 
-                error, message = perform_instruction(user_input)
+                error, message = perform_instruction(scanner, user_input)
                 if error:
                     print(message)
         except KeyboardInterrupt:
@@ -30,17 +33,20 @@ def retrieve_arguments():
     return parser.parse_args()
 
 
-def perform_instruction(instruction: str) -> list[bool, str]:
+def perform_instruction(scanner: Scanner, instruction: str) -> list[bool, str]:
     try:
-        raise NotImplementedError("Scanner Not Implemented")
+        tokens = scanner.scan(instruction)
+        # print(*tokens, sep='\n')
     except Exception as e:
         return True, str(e)
     return False, ''
 
 
-def compile_file(file: str) -> list[bool, str]:
+def compile_file(scanner: Scanner, file_name: str) -> list[bool, str]:
     try:
-        raise NotImplementedError("Scanner Not Implemented")
+        with open(file_name, 'r') as file:
+            tokens = scanner.scan(file.read())
+            # print(*tokens, sep='\n')
     except Exception as e:
         return True, str(e)
     return False, ''
