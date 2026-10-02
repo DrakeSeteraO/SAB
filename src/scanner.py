@@ -237,13 +237,18 @@ class Scanner:
                                 line=self.line,
                                 column=self.column)]
                     self.increment()
-                    temp += self.get_escape_val()
+                    temp += [self.get_escape_val()]
                     string = ''
                     start_column = self.column
                 else:
                     string += self.code[self.i]
                     self.increment()
-            temp += [Token(tokentype=TokenType.DOUBLE_QUOTE,
+            temp += [Token(tokentype=TokenType.STRING,
+                           lexeme=string,
+                           literal=string,
+                           line=self.line,
+                           column=start_column),
+                     Token(tokentype=TokenType.DOUBLE_QUOTE,
                            lexeme='"',
                            literal=None,
                            line=self.line,

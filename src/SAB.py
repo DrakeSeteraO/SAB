@@ -36,7 +36,8 @@ def retrieve_arguments():
 def perform_instruction(scanner: Scanner, instruction: str) -> list[bool, str]:
     try:
         tokens = scanner.scan(instruction)
-        # print(*tokens, sep='\n')
+        print('=' * 20)
+        print(*tokens, sep='\n')
     except Exception as e:
         return True, str(e)
     return False, ''
@@ -46,7 +47,8 @@ def compile_file(scanner: Scanner, file_name: str) -> list[bool, str]:
     try:
         with open(file_name, 'r') as file:
             tokens = scanner.scan(file.read())
-            # print(*tokens, sep='\n')
+            print('=' * 20)
+            print(*tokens, sep='\n')
     except Exception as e:
         return True, str(e)
     return False, ''
