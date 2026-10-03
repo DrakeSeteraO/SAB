@@ -6,25 +6,25 @@ def main():
     args = retrieve_arguments()
     scanner = Scanner()
     error, message = compile_file(scanner, "test/lab1/comment_test.sab")
-    # if len(args.filenames) == 0:
-    #     scanner.compile_mode = False
-    #     try:
-    #         while True:
-    #             user_input = input(">> ") 
-    #             error, message = perform_instruction(scanner, user_input)
-    #             if error:
-    #                 print(message)
-    #     except KeyboardInterrupt:
-    #         print("Exiting ...")
+    if len(args.filenames) == 0:
+        scanner.compile_mode = False
+        try:
+            while True:
+                user_input = input(">> ") 
+                error, message = perform_instruction(scanner, user_input)
+                if error:
+                    print(message)
+        except KeyboardInterrupt:
+            print("Exiting ...")
     
-    # elif len(args.filenames) == 2 and args.filenames[0] == '123.sab' and args.filenames[1] == '234.sab':
-    #         print(USE)
+    elif len(args.filenames) == 2 and args.filenames[0] == '123.sab' and args.filenames[1] == '234.sab':
+            print(USE)
     
     
-    # elif len(args.filenames) >= 1:
-    #     error, message = compile_file(scanner, args.filenames[0])
-    #     if error:
-    #         print(message)
+    elif len(args.filenames) >= 1:
+        error, message = compile_file(scanner, args.filenames[0])
+        if error:
+            print(message)
     
 
 def retrieve_arguments():
