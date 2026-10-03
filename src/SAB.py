@@ -5,7 +5,7 @@ from scanner import Scanner
 def main():
     args = retrieve_arguments()
     scanner = Scanner()
-    error, message = compile_file(scanner, "test/lab1/var_test.sab")
+    error, message = compile_file(scanner, "test/lab1/comment_test.sab")
     # if len(args.filenames) == 0:
     #     scanner.compile_mode = False
     #     try:

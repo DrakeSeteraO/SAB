@@ -53,7 +53,6 @@ class Scanner:
             
             else:
                 self.word_token()
-            print(self.tokens[-1])
         
         self.tokens.append(Token(tokentype=TokenType.EOF,
                                  lexeme=None,
@@ -67,11 +66,11 @@ class Scanner:
     
     def comment_token(self):
         var = self.code[self.i]
+        start = self.i
         self.increment()
         try:
-            while self.code[self.i] in ['#', '\n']:
+            while not self.code[self.i] in ['#', '\n']:
                 var += self.code[self.i]
-                start = self.i
                 self.increment()
                 
             if self.code[self.i] == '#':
@@ -82,7 +81,8 @@ class Scanner:
                                     literal=var,
                                     line=self.line,
                                     column=start))
-        except:
+        except Exception as e:
+            print(e)
             raise IndexError
     
     
