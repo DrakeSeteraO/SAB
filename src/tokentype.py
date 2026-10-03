@@ -69,6 +69,8 @@ class TokenType(Enum):
     STR = auto()
     INT = auto()
     FLOAT = auto()
+    HEX = auto()
+    BIN = auto()
     NULL = auto()
     VAR = auto()
     VOID = auto()
@@ -105,6 +107,9 @@ class TokenType(Enum):
     QUOTE = auto()
     DOUBLE_QUOTE = auto()
     HASH_TAG = auto()
+    
+    # Comment
+    COMMENT = auto()
     
     # Escape
     ESCAPE = auto()
@@ -184,6 +189,8 @@ WORD_TO_TOKEN = {
     'int' : TokenType.INT,
     'str' : TokenType.STR,
     'float' : TokenType.FLOAT,
+    'bin' : TokenType.BIN,
+    'hex' : TokenType.HEX,
     'void' : TokenType.VOID,
     'if' : TokenType.IF,
     'elif' : TokenType.ELIF,

@@ -1,0 +1,6 @@
+int x = 21;
+char y = 'L';
+float zee = 123.4567;
+str hello_there = "How are you today?";
+bin wowza = 0b1101;
+hex lmao = 0x6A;

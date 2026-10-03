@@ -33,7 +33,10 @@ class Scanner:
         self.column = 1
 
         while self.i < len(self.code):
-            if self.code[self.i] in CHAR_TO_TOKEN.keys():
+            if self.code[self.i] == '#':
+                self.comment_token()
+                
+            elif self.code[self.i] in CHAR_TO_TOKEN.keys():
                 self.char_token()
             
             elif self.code[self.i] in SPECIAL_CHAR_TO_TOKEN.keys():
@@ -61,6 +64,28 @@ class Scanner:
         return self.tokens
        
        
+    
+    def comment_token(self):
+        var = self.code[self.i]
+        self.increment()
+        try:
+            while self.code[self.i] in ['#', '\n']:
+                var += self.code[self.i]
+                start = self.i
+                self.increment()
+                
+            if self.code[self.i] == '#':
+                self.increment()
+                
+            self.tokens.append(Token(tokentype=TokenType.COMMENT,
+                                    lexeme=var,
+                                    literal=var,
+                                    line=self.line,
+                                    column=start))
+        except:
+            raise IndexError
+    
+    
                 
     def char_token(self):
         cur_token = Token(tokentype=CHAR_TO_TOKEN[self.code[self.i]], 
@@ -68,13 +93,14 @@ class Scanner:
                             literal=None, 
                             line=self.line, 
                             column=self.column)
-        self.tokens.append(cur_token)
-        self.increment()
         if cur_token.type == TokenType.NEW_LINE:
             self.line += 1
             self.column = 1
         elif cur_token.type == TokenType.TAB:
             self.column += 3
+        elif not cur_token.type == TokenType.SPACE:
+            self.tokens.append(cur_token)
+        self.increment()
     
     
     
@@ -281,7 +307,7 @@ class Scanner:
     def word_token(self):
         for word in RESERVED_WORDS:
             try:
-                if self.code[self.i:self.i+len(word)] == word:
+                if self.code[self.i:self.i+len(word)] == word and not self.code[self.i+len(word)]:
                     self.tokens.append(Token(WORD_TO_TOKEN[word],
                                              lexeme=word,
                                              literal=None,
@@ -292,13 +318,13 @@ class Scanner:
             except:
                 pass
         
-        if not self.code[self.i].isalpha():
+        if not (self.code[self.i].isalpha() or self.code[self.i] == '_'):
             raise ValueError
         
         start = self.i
         val = ''
         try:
-            while self.code[self.i].isalpha():
+            while self.code[self.i].isalpha() or self.code[self.i] == '_':
                 val += self.code[self.i]
                 self.increment()
         except:

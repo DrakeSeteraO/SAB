@@ -5,26 +5,26 @@ from scanner import Scanner
 def main():
     args = retrieve_arguments()
     scanner = Scanner()
-
-    if len(args.filenames) == 0:
-        scanner.compile_mode = False
-        try:
-            while True:
-                user_input = input(">> ") 
-                error, message = perform_instruction(scanner, user_input)
-                if error:
-                    print(message)
-        except KeyboardInterrupt:
-            print("Exiting ...")
+    error, message = compile_file(scanner, "test/lab1/var_test.sab")
+    # if len(args.filenames) == 0:
+    #     scanner.compile_mode = False
+    #     try:
+    #         while True:
+    #             user_input = input(">> ") 
+    #             error, message = perform_instruction(scanner, user_input)
+    #             if error:
+    #                 print(message)
+    #     except KeyboardInterrupt:
+    #         print("Exiting ...")
     
-    elif len(args.filenames) == 2 and args.filenames[0] == '123.sab' and args.filenames[1] == '234.sab':
-            print(USE)
+    # elif len(args.filenames) == 2 and args.filenames[0] == '123.sab' and args.filenames[1] == '234.sab':
+    #         print(USE)
     
     
-    elif len(args.filenames) >= 1:
-        error, message = compile_file(args)
-        if error:
-            print(message)
+    # elif len(args.filenames) >= 1:
+    #     error, message = compile_file(scanner, args.filenames[0])
+    #     if error:
+    #         print(message)
     
 
 def retrieve_arguments():
@@ -36,7 +36,7 @@ def retrieve_arguments():
 def perform_instruction(scanner: Scanner, instruction: str) -> list[bool, str]:
     try:
         tokens = scanner.scan(instruction)
-        print('=' * 20)
+        print('=' * 50)
         print(*tokens, sep='\n')
     except Exception as e:
         return True, str(e)
@@ -47,7 +47,7 @@ def compile_file(scanner: Scanner, file_name: str) -> list[bool, str]:
     try:
         with open(file_name, 'r') as file:
             tokens = scanner.scan(file.read())
-            print('=' * 20)
+            print('=' * 50)
             print(*tokens, sep='\n')
     except Exception as e:
         return True, str(e)

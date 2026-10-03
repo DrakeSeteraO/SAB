@@ -1,0 +1,16 @@
+char normal_char = 'a';
+
+char new_line_char = '\n';
+char tab_char = '\t';
+char int_ascii_char = '\76';
+char bin_ascii_char = '\0b101';
+char hex_ascii_char = '\0xAF';
+
+
+str normal_str = "This is a normal string";
+
+str new_line_str = "This is a string\nWith another line";
+str tab_str = "This is a string\tWith a tab";
+str int_str = "This is a string with int_ascii: \123";
+str bin_str = "This is a string with bin_ascii: \0b10000";
+str hex_str = "This is a string with hex_ascii: \0x1F";
