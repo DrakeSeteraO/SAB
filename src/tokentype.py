@@ -206,3 +206,35 @@ WORD_TO_TOKEN = {
 }
 
 RESERVED_WORDS = [w for w in WORD_TO_TOKEN.keys()]
+
+
+
+LITERAL_TYPES = {
+    TokenType.NULL,
+    TokenType.TRUE,
+    TokenType.FALSE,
+    TokenType.INTEGER,
+    TokenType.FLOATING_POINT,
+    TokenType.CHARACTER,
+    TokenType.STRING,
+    TokenType.BINARY,
+    TokenType.HEXADECIMAL,
+    TokenType.IDENTIFIER
+}
+
+
+
+UNARY_OPERATORS = {
+    TokenType.PLUS,
+    TokenType.PLUS_PLUS,
+    TokenType.MINUS,
+    TokenType.MINUS_MINUS,
+    TokenType.NOT,
+    TokenType.BOOL_NOT
+}
+
+
+
+BINARY_OPERATORS = {
+    
+}
