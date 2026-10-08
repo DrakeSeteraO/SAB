@@ -58,7 +58,7 @@ class Scanner:
                                  lexeme=None,
                                  literal=None,
                                  line=self.line,
-                                 column=self.i))
+                                 column=self.column))
         self.total_tokens += self.tokens
         return self.tokens
        
@@ -74,11 +74,12 @@ class Scanner:
                 self.increment()
                 
             if self.code[self.i] == '#':
+                var += self.code[self.i]
                 self.increment()
                 
             self.tokens.append(Token(tokentype=TokenType.COMMENT,
                                     lexeme=var,
-                                    literal=var,
+                                    literal=None,
                                     line=self.line,
                                     column=start))
         except Exception as e:
@@ -181,7 +182,7 @@ class Scanner:
                         column=self.column+1)                                                 
                 ]
                 self.increment(2)
-                temp += self.get_escape_val()
+                temp += [self.get_escape_val()]
                 if self.code[self.i] == "'":
                     temp += Token(tokentype=TokenType.QUOTE, 
                                 lexeme="'",
@@ -307,7 +308,7 @@ class Scanner:
     def word_token(self):
         for word in RESERVED_WORDS:
             try:
-                if self.code[self.i:self.i+len(word)] == word and not self.code[self.i+len(word)]:
+                if self.code[self.i:self.i+len(word)] == word and not self.code[self.i+len(word)].isalnum():
                     self.tokens.append(Token(WORD_TO_TOKEN[word],
                                              lexeme=word,
                                              literal=None,

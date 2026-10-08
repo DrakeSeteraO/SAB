@@ -2,27 +2,31 @@ import argparse
 from how_to_use_interpreter import USE, HELP
 from scanner import Scanner
 
-def main():
-    args = retrieve_arguments()
+def main(file_name = None):
     scanner = Scanner()
-    error, message = compile_file(scanner, "test/lab1/comment_test.sab")
-    if len(args.filenames) == 0:
-        scanner.compile_mode = False
-        try:
-            while True:
-                user_input = input(">> ") 
-                error, message = perform_instruction(scanner, user_input)
-                if error:
-                    print(message)
-        except KeyboardInterrupt:
-            print("Exiting ...")
-    
-    elif len(args.filenames) == 2 and args.filenames[0] == '123.sab' and args.filenames[1] == '234.sab':
-            print(USE)
-    
-    
-    elif len(args.filenames) >= 1:
-        error, message = compile_file(scanner, args.filenames[0])
+    if file_name is None:
+        args = retrieve_arguments()
+        if len(args.filenames) == 0:
+            scanner.compile_mode = False
+            try:
+                while True:
+                    user_input = input(">> ") 
+                    error, message = perform_instruction(scanner, user_input)
+                    if error:
+                        print(message)
+            except KeyboardInterrupt:
+                print("Exiting ...")
+        
+        elif len(args.filenames) == 2 and args.filenames[0] == '123.sab' and args.filenames[1] == '234.sab':
+                print(USE)
+        
+        
+        elif len(args.filenames) >= 1:
+            error, message = compile_file(scanner, args.filenames[0])
+            if error:
+                print(message)
+    else:
+        error, message = compile_file(scanner, file_name)
         if error:
             print(message)
     
@@ -55,4 +59,4 @@ def compile_file(scanner: Scanner, file_name: str) -> list[bool, str]:
     
 
 if __name__ == '__main__':
-    main()
+    main("test/lab1/var_test.sab")
