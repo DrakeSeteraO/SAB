@@ -12,11 +12,6 @@ class TokenType(Enum):
     LEFT_BRACKET = auto()
     RIGHT_BRACKET = auto()
 
-    # White space
-    SPACE = auto()
-    NEW_LINE = auto()
-    TAB = auto()
-
     # Single-character
     EQUAL = auto()
     PLUS = auto()
@@ -120,9 +115,6 @@ class TokenType(Enum):
 
 
 CHAR_TO_TOKEN = {
-    ' ' : TokenType.SPACE,
-    '\n' : TokenType.NEW_LINE,
-    '\t' : TokenType.TAB,
     '(' : TokenType.LEFT_PAREN,
     ')' : TokenType.RIGHT_PAREN,
     '{' : TokenType.LEFT_BRACE,

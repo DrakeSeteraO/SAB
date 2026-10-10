@@ -35,7 +35,15 @@ class Scanner:
         while self.i < len(self.code):
             if self.code[self.i] == '#':
                 self.comment_token()
-                
+            
+            elif self.code[self.i] in [' ', '\n', '\t']:
+                if self.code[self.i] == '\n':
+                    self.line += 1
+                    self.column = 0
+                elif self.code[self.i] == '\t':
+                    self.column += 2
+                self.increment()
+            
             elif self.code[self.i] in CHAR_TO_TOKEN.keys():
                 self.char_token()
             
@@ -94,13 +102,7 @@ class Scanner:
                             literal=None, 
                             line=self.line, 
                             column=self.column)
-        if cur_token.type == TokenType.NEW_LINE:
-            self.line += 1
-            self.column = 1
-        elif cur_token.type == TokenType.TAB:
-            self.column += 3
-        elif not cur_token.type == TokenType.SPACE:
-            self.tokens.append(cur_token)
+        self.tokens.append(cur_token)
         self.increment()
     
     
