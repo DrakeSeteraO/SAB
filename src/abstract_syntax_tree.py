@@ -3,7 +3,11 @@ from tokentype import TokenType, LITERAL_TYPES, UNARY_OPERATORS, BINARY_OPERATOR
 
 
 class Expression:
-    pass
+    def __str__(self):
+        pass
+    
+    def RPN(self):
+        pass
 
 
 
@@ -15,6 +19,9 @@ class Literal(Expression):
 
     def __str__(self):
         return self.val_token.lexeme
+    
+    def RPN(self):
+        return self.val_token.lexeme
 
 
 class Grouping(Expression):
@@ -25,6 +32,9 @@ class Grouping(Expression):
 
     def __str__(self):
         return f"(group {self.expression})"
+    
+    def RPN(self):
+        return self.expression.RPN()
 
 
 class Unary(Expression):
@@ -38,6 +48,9 @@ class Unary(Expression):
 
     def __str__(self):
         return f"({self.operator.lexeme} {self.expression})"
+    
+    def RPN(self):
+        return f"{self.expression.RPN()} .{self.operator.lexeme}"
 
 
 class Binary(Expression):
@@ -54,6 +67,9 @@ class Binary(Expression):
     
     def __str__(self):
         return f"({self.operator} {self.left} {self.right})"
+    
+    def RPN(self):
+        return f"{self.left.RPN()} {self.right.RPN()} {self.operator}"
 
 
 
@@ -66,3 +82,5 @@ class Operator(Expression):
     def __str__(self):
         return self.operator.lexeme
 
+    def RPN(self):
+        return self.operator.lexeme

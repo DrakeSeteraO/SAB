@@ -57,4 +57,4 @@ def compile_file(scanner: Scanner, file_name: str) -> list[bool, str]:
     
 
 if __name__ == '__main__':
-    main("test/lab1/var_test.sab")
+    main()
