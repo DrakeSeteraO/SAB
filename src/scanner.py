@@ -253,7 +253,7 @@ class Scanner:
             self.increment()
             string = ""
             start_column = self.column
-            while self.code[self.i] != '"':
+            while self.code[self.i] != '"' and self.i < len(self.code):
                 if self.code[self.i] == '\\':
                     temp += [Token(tokentype=TokenType.STRING,
                                 lexeme=string,
@@ -272,6 +272,8 @@ class Scanner:
                 else:
                     string += self.code[self.i]
                     self.increment()
+            if self.i >= len(self.code):
+                raise ValueError("Unterminated String")
             temp += [Token(tokentype=TokenType.STRING,
                            lexeme=string,
                            literal=string,
@@ -321,7 +323,7 @@ class Scanner:
             except:
                 pass
         
-        if not (self.code[self.i].isalpha() or self.code[self.i] == '_'):
+        if not (self.code[self.i].isalnum() or self.code[self.i] == '_'):
             raise ValueError
         
         start = self.i

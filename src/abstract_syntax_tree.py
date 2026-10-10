@@ -92,8 +92,8 @@ class Binary(Expression):
         return f"{self.left.RPN()} {self.right.RPN()} {self.operator.lexeme}"
     
     def display(self):
-        temp1 = '\n│   ├── '+self.left.display().replace('\n', '\n│   ')
-        temp2 = '\n    └── '+self.right.display().replace('\n', '\n    ')
+        temp1 = '\n│   └── '+self.left.display().replace('\n', '\n│       ')
+        temp2 = '\n    └── '+self.right.display().replace('\n', '\n        ')
         out = f"Binary:\n├── Expression:{temp1}" +\
             f"\n├── Operator: {self.operator.lexeme}" +\
             f"\n└── Expression:{temp2}"
