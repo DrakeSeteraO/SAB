@@ -222,11 +222,27 @@ UNARY_OPERATORS = {
     TokenType.MINUS,
     TokenType.MINUS_MINUS,
     TokenType.NOT,
-    TokenType.BOOL_NOT
+    TokenType.BOOL_NOT,
+    TokenType.ADDRESS,
+    TokenType.AT,
 }
 
 
 
 BINARY_OPERATORS = {
-    
+    TokenType.PLUS,
+    TokenType.MINUS,
+    TokenType.STAR,
+    TokenType.SLASH,
+    TokenType.PERCENT,
+    TokenType.LESS,
+    TokenType.GREATER,
+    TokenType.AND,
+    TokenType.OR,
+    TokenType.XOR,
+    TokenType.SHIFT_LEFT,
+    TokenType.SHIFT_RIGHT,
+    TokenType.EQUAL_EQUAL,
+    TokenType.AND_AND,
+    TokenType.OR_OR,
 }
