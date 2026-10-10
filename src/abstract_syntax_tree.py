@@ -24,6 +24,19 @@ class Literal(Expression):
         return self.val_token.lexeme
 
 
+class Operator(Expression):
+    def __init__(self, operator: TokenType):
+        if operator not in BINARY_OPERATORS:
+            raise TypeError
+        self.operator = operator
+    
+    def __str__(self):
+        return self.operator.lexeme
+
+    def RPN(self):
+        return self.operator.lexeme
+
+
 class Grouping(Expression):
     def __init__(self, expression: Expression):
         if not isinstance(expression, Expression):
@@ -51,7 +64,7 @@ class Unary(Expression):
     
     def RPN(self):
         return f"{self.expression.RPN()} .{self.operator.lexeme}"
-
+    
 
 class Binary(Expression):
     def __init__(self, left_expression: Expression, operator: Operator, right_expression: Expression):
@@ -70,17 +83,4 @@ class Binary(Expression):
     
     def RPN(self):
         return f"{self.left.RPN()} {self.right.RPN()} {self.operator}"
-
-
-
-class Operator(Expression):
-    def __init__(self, operator: TokenType):
-        if operator not in BINARY_OPERATORS:
-            raise TypeError
-        self.operator = operator
     
-    def __str__(self):
-        return self.operator.lexeme
-
-    def RPN(self):
-        return self.operator.lexeme
