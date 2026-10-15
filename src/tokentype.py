@@ -28,6 +28,7 @@ class TokenType(Enum):
     MINUS_MINUS = auto()
     SHIFT_LEFT = auto()
     SHIFT_RIGHT = auto()
+    STAR_STAR = auto()
 
     # Comparison
     GREATER_EQUAL = auto()
@@ -167,7 +168,8 @@ DOUBLE_CHAR_TO_TOKEN = {
     '&=' : TokenType.AND_EQUAL,
     '||' : TokenType.OR_OR,
     '|=' : TokenType.OR_EQUAL,
-    '^=' : TokenType.XOR_EQUAL
+    '^=' : TokenType.XOR_EQUAL,
+    '**' : TokenType.STAR_STAR
 }
 
 
@@ -245,4 +247,82 @@ BINARY_OPERATORS = {
     TokenType.EQUAL_EQUAL,
     TokenType.AND_AND,
     TokenType.OR_OR,
+    TokenType.STAR_STAR
 }
+
+
+
+EXPRESSION_PRECEDENCE = [
+    {
+        # Special Cases
+        TokenType.LEFT_PAREN,
+        TokenType.RIGHT_PAREN,
+        TokenType.LEFT_BRACE,
+        TokenType.RIGHT_BRACE,
+        TokenType.DOT
+    },
+    {
+        # Unary Operators
+        TokenType.PLUS_PLUS,
+        TokenType.MINUS_MINUS,
+        TokenType.PLUS_PLUS,
+        TokenType.MINUS,
+        TokenType.NOT,
+        TokenType.BOOL_NOT,
+        TokenType.ADDRESS,
+        TokenType.AT
+    },
+    {
+        TokenType.STAR_STAR  
+    },
+    {
+        TokenType.STAR,
+        TokenType.SLASH, 
+        TokenType.PERCENT
+    },
+    {
+        TokenType.PLUS,
+        TokenType.MINUS,
+    },
+    {
+        TokenType.SHIFT_LEFT,
+        TokenType.SHIFT_RIGHT
+    },
+    {
+        TokenType.AND  
+    },
+    {
+        TokenType.XOR
+    },
+    {
+        TokenType.OR  
+    },
+    {
+        TokenType.LESS,
+        TokenType.LESS_EQUAL, 
+        TokenType.GREATER, 
+        TokenType.GREATER_EQUAL,
+        TokenType.EQUAL_EQUAL, 
+        TokenType.BOOL_NOT_EQUAL
+    },
+    {
+        TokenType.BOOL_NOT
+    },
+    {
+        TokenType.AND_AND
+    },
+    {
+        TokenType.OR_OR
+    },
+    {
+        TokenType.EQUAL,
+        TokenType.PLUS_EQUAL, 
+        TokenType.MINUS_EQUAL,
+        TokenType.MULT_EQUAL,
+        TokenType.DIV_EQUAL, 
+        TokenType.MOD_EQUAL,
+        TokenType.XOR_EQUAL,
+        TokenType.OR_EQUAL,
+        TokenType.AND_EQUAL
+    }    
+]

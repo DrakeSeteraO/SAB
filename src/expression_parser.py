@@ -6,3 +6,7 @@ class Expression_Parser:
         if not isinstance(expression, str):
             raise TypeError
         self.expression = expression
+    
+    
+    def parse(self):
+        ...
