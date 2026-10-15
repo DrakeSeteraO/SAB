@@ -32,6 +32,54 @@ class Literal(Expression):
 
 
 
+class Integer_Node(Literal):
+    def __init__(self, val_token):
+        super().__init__(val_token)
+
+
+
+class Float_Node(Literal):
+    def __init__(self, val_token):
+        super().__init__(val_token)
+
+
+
+class Character_Node(Literal):
+    def __init__(self, val_token):
+        super().__init__(val_token)
+
+
+
+class String_Node(Literal):
+    def __init__(self, val_token):
+        super().__init__(val_token)
+
+
+
+class Binary_Node(Literal):
+    def __init__(self, val_token):
+        super().__init__(val_token)
+
+
+
+class Hexadecimal_Node(Literal):
+    def __init__(self, val_token):
+        super().__init__(val_token)
+
+
+
+class Variable_Node(Literal):
+    def __init__(self, val_token):
+        super().__init__(val_token)
+
+
+
+class Function_Node(Literal):
+    def __init__(self, val_token):
+        super().__init__(val_token)
+
+
+
 class Grouping(Expression):
     def __init__(self, expression: Expression):
         if not isinstance(expression, Expression):
