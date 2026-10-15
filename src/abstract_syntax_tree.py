@@ -68,6 +68,12 @@ class Hexadecimal_Node(Literal):
 
 
 
+class Raw_Node(Literal):
+    def __init__(self, val_token):
+        super().__init__(val_token)
+
+
+
 class Variable_Node(Literal):
     def __init__(self, val_token):
         super().__init__(val_token)
