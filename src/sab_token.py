@@ -2,7 +2,7 @@ from tokentype import TokenType
 
 
 class Token:
-    def __init__(self, tokentype: TokenType, lexeme: str, literal, line: int, column: int):
+    def __init__(self, tokentype: TokenType, lexeme: str, literal = None, line: int = 0, column: int = 0):
         self.type = tokentype
         self.lexeme = lexeme
         self.literal = literal

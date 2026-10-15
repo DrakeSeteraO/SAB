@@ -22,8 +22,8 @@ LAST_LEVEL = -1 % len(EXPRESSION_PRECEDENCE)
 
 
 class Expression_Parser:
-    def __init__(self, expression: str):
-        if not isinstance(expression, str):
+    def __init__(self, expression: list):
+        if not isinstance(expression, list):
             raise TypeError
         self.tokens = expression
         self.current = 0
@@ -31,16 +31,18 @@ class Expression_Parser:
     
     
     def parse(self):
-        return self.evaluate(LAST_LEVEL)
+        temp = self.evaluate(LAST_LEVEL)
+        self.current = 0
+        return temp
     
     
     
     def evaluate(self, level: int):
         if level <= 0:
             if self.match(TOKEN_TO_LITERAL.keys()):
-                return TOKEN_TO_LITERAL[self.previous()](self.previous())
+                return TOKEN_TO_LITERAL[self.previous().type](self.previous())
             
-            if self.match(TokenType.LEFT_PAREN):
+            if self.match([TokenType.LEFT_PAREN]):
                 inner = self.evaluate(LAST_LEVEL)
                 self.match(TokenType.RIGHT_PAREN)
                 return Grouping(inner)
@@ -58,7 +60,7 @@ class Expression_Parser:
         
         
         else:
-            left = self.expression(level - 1)
+            left = self.evaluate(level - 1)
             
             while self.match(EXPRESSION_PRECEDENCE[level]):
                 operator = self.previous()
@@ -69,22 +71,22 @@ class Expression_Parser:
     
     
     
-    def match(self, types):
-        if self.tokens[self.current] in types:
+    def match(self, types: set[Token]):
+        if self.tokens[self.current].type in types:
             self.advance()
             return True
         return False
 
 
 
-    def check(self, token_type):
-        if self.is_at_end(): return False
+    def check(self, token_type: TokenType):
+        if self.at_end(): return False
         return self.tokens[self.current].type == token_type
 
 
 
     def advance(self):
-        if not self.is_at_end(): self.current += 1
+        if not self.at_end(): self.current += 1
         return self.previous()
 
 
@@ -94,7 +96,7 @@ class Expression_Parser:
 
 
 
-
-    def is_at_end(self):
-        return self.tokens[self.current].type == TokenType.EOF
+    def at_end(self):
+        return self.tokens[self.current] == TokenType.SEMICOLON or\
+            self.tokens[self.current].type == TokenType.EOF
     
