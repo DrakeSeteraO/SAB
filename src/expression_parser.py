@@ -12,7 +12,8 @@ TOKEN_TO_LITERAL = {
     TokenType.HEXADECIMAL : Hexadecimal_Node,
     TokenType.NULL : Raw_Node,
     TokenType.TRUE : Raw_Node,
-    TokenType.FALSE : Raw_Node
+    TokenType.FALSE : Raw_Node,
+    TokenType.IDENTIFIER : Variable_Node
 }
 
 
