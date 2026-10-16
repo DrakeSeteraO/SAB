@@ -63,10 +63,17 @@ class Expression_Parser:
         else:
             left = self.evaluate(level - 1)
             
-            while self.match(EXPRESSION_PRECEDENCE[level]):
-                operator = self.previous()
-                right = self.evaluate(level - 1)
-                left = Binary(left, operator, right)
+            if TokenType.EQUAL in EXPRESSION_PRECEDENCE[level]:
+                if self.match(EXPRESSION_PRECEDENCE[level]):
+                    operator = self.previous()
+                    right = self.evaluate(level) 
+                    left = Binary(left, operator, right)
+            
+            else:
+                while self.match(EXPRESSION_PRECEDENCE[level]):
+                    operator = self.previous()
+                    right = self.evaluate(level - 1)
+                    left = Binary(left, operator, right)
             
             return left
     
