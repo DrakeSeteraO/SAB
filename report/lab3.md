@@ -65,4 +65,6 @@ I implemented the ternary operator for inline branchless programming, but I expa
     * **Input:** `x == 3 ? 100`
     * **Output:** `(? (== x 3) 100 None)`
 
-**Value & Effort:** Because this requires up to three operands instead of the usual one or two, it required a dedicated branch in my parser. The parser evaluates the condition, mandates a `?`, recursively parses the true branch, and then *optionally* checks for a `:` to parse a false branch. If no `:` is found, the right branch simply becomes `None`, allowing for highly concise conditional assignments. I also created a brand new `Trinary` AST node to properly store and display this structure.
+**Value & Effort:** Because this requires up to three operands instead of the usual one or two, it required a dedicated branch in my parser. The parser evaluates the condition, mandates a `?`, recursively parses the true branch, and then *optionally* checks for a `:` to parse a false branch. If no `:` is found, the right branch simply becomes `None`. I also created a brand new `Trinary` AST node to properly store and display this structure.
+
+**Feature:** Added static type objects. In the future I'm planning to add static type checking, so when someone attempts to compile their code it warns them about performing binary operations on different object types. 
