@@ -44,7 +44,7 @@ class Expression_Parser:
             
             if self.match([TokenType.LEFT_PAREN]):
                 inner = self.evaluate(LAST_LEVEL)
-                self.match(TokenType.RIGHT_PAREN)
+                self.match([TokenType.RIGHT_PAREN])
                 return Grouping(inner)
             
             raise ValueError("Expected a value")
