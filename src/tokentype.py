@@ -22,6 +22,7 @@ class TokenType(Enum):
     SLASH = auto()
     PERCENT = auto()
     COLON = auto()
+    QUESTION = auto()
 
     # Two-character
     PLUS_PLUS = auto()
@@ -127,7 +128,8 @@ CHAR_TO_TOKEN = {
     ';' : TokenType.SEMICOLON,
     '@' : TokenType.ADDRESS,
     '$' : TokenType.AT,
-    ':' : TokenType.COLON
+    ':' : TokenType.COLON,
+    '?' : TokenType.QUESTION
 }
 
 
@@ -324,6 +326,10 @@ EXPRESSION_PRECEDENCE = [
     },
     {
         TokenType.OR_OR
+    },
+    {
+        TokenType.QUESTION,
+        TokenType.COLON  
     },
     {
         TokenType.EQUAL,

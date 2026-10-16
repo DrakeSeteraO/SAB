@@ -31,6 +31,8 @@ class Scanner:
         self.code = code
         self.i = 0
         self.column = 1
+        self.tokens = []
+        self.total_tokens = self.total_tokens[:-1]
 
         while self.i < len(self.code):
             if self.code[self.i] == '#':

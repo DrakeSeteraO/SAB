@@ -1,6 +1,9 @@
 import argparse
 from how_to_use_interpreter import USE, HELP
 from scanner import Scanner
+from parser import Parser
+
+
 
 def main(file_name = None):
     scanner = Scanner()
@@ -31,30 +34,36 @@ def main(file_name = None):
             print(message)
     
 
+
 def retrieve_arguments():
     parser = argparse.ArgumentParser(description=HELP)
     parser.add_argument("filenames", type=str, nargs="*", help="One or more files you want to compile")
     return parser.parse_args()
 
 
+
 def perform_instruction(scanner: Scanner, instruction: str) -> list[bool, str]:
     try:
-        tokens = scanner.scan(instruction)
-        print(*tokens, sep='\n')
+        tokens = scanner.scan(instruction + ';')
+        parser = Parser(tokens).parse()
+        print(parser)
     except Exception as e:
         return True, str(e)
     return False, ''
+
 
 
 def compile_file(scanner: Scanner, file_name: str) -> list[bool, str]:
     try:
         with open(file_name, 'r') as file:
             tokens = scanner.scan(file.read())
-            print(*tokens, sep='\n')
+            parser = Parser(tokens).parse()
+            print(parser)
     except Exception as e:
         return True, str(e)
     return False, ''
     
+
 
 if __name__ == '__main__':
     main()

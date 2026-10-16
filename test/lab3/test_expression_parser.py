@@ -6,7 +6,7 @@ sys.path.append("src")
 import pytest
 from tokentype import TokenType
 from sab_token import Token
-from expression_parser import Expression_Parser
+from parser import Parser
 
 
 
@@ -17,7 +17,7 @@ def test_1():
               Token(TokenType.INTEGER,'2','2'),
               Token(TokenType.SEMICOLON,';')]
     
-    tree = Expression_Parser(tokens).parse()
+    tree = Parser(tokens).parse()
     assert str(tree) == '(+ 1 2)' 
 
 
@@ -33,7 +33,7 @@ def test_2():
               Token(TokenType.INTEGER,'4','4'),              
               Token(TokenType.SEMICOLON,';')]
     
-    tree = Expression_Parser(tokens).parse()
+    tree = Parser(tokens).parse()
     assert str(tree) == '(+ (- (+ 1 2) 3) 4)' 
     
     
@@ -52,7 +52,7 @@ def test_3():
               Token(TokenType.INTEGER,'50','50'),                     
               Token(TokenType.SEMICOLON,';')]
     
-    tree = Expression_Parser(tokens).parse()
+    tree = Parser(tokens).parse()
     assert str(tree) == '(+ (* (~ (group (/ 5 2))) 2) 50)' 
     
     
@@ -66,7 +66,7 @@ def test_4():
               Token(TokenType.TRUE, 'true', 'true'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Expression_Parser(tokens).parse()
+    tree = Parser(tokens).parse()
     assert str(tree) == '(== (>= 10 5) true)'
 
 
@@ -82,7 +82,7 @@ def test_5():
               Token(TokenType.INTEGER, '4', '4'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Expression_Parser(tokens).parse()
+    tree = Parser(tokens).parse()
     assert str(tree) == '(| (<< 1 2) (& 3 4))'
 
 
@@ -97,7 +97,7 @@ def test_6():
               Token(TokenType.IDENTIFIER, 'x', 'x'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Expression_Parser(tokens).parse()
+    tree = Parser(tokens).parse()
     assert str(tree) == '(|| (&& (! true) false) x)'
 
 
@@ -111,7 +111,7 @@ def test_7():
               Token(TokenType.INTEGER, '10', '10'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Expression_Parser(tokens).parse()
+    tree = Parser(tokens).parse()
     assert str(tree) == '(= a (= b 10))'
 
 
@@ -126,7 +126,7 @@ def test_8():
               Token(TokenType.INTEGER, '3', '3'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Expression_Parser(tokens).parse()
+    tree = Parser(tokens).parse()
     assert str(tree) == '(- (- 5) (- 3))'
 
 

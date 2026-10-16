@@ -22,7 +22,7 @@ LAST_LEVEL = -1 % len(EXPRESSION_PRECEDENCE)
 
 
 
-class Expression_Parser:
+class Parser:
     def __init__(self, expression: list):
         if not isinstance(expression, list):
             raise TypeError
@@ -51,7 +51,7 @@ class Expression_Parser:
             raise ValueError("Expected a value")
         
         
-        if level == 1:
+        elif level == 1:
             if self.match(UNARY_OPERATORS):
                 operator = self.previous()
                 right = self.evaluate(level)
@@ -60,20 +60,35 @@ class Expression_Parser:
             return self.evaluate(level - 1)
         
         
+        elif level == LAST_LEVEL - 1:
+            left = self.evaluate(level - 1)
+            if self.match([TokenType.QUESTION]):
+                left_operator = self.previous()
+                middle = self.evaluate(level - 1)
+                right = None
+                if self.match([TokenType.Colon]):
+                    right_operator = self.previous()
+                    right = self.evaluate(level - 1)
+                return Trinary(left, left_operator, middle, right_operator, right)
+            return left
+            
+                
+        
+        elif level == LAST_LEVEL:
+            left = self.evaluate(level - 1)
+            if self.match(EXPRESSION_PRECEDENCE[level]):
+                operator = self.previous()
+                right = self.evaluate(level) 
+                return Binary(left, operator, right)
+            return left
+            
+            
         else:
             left = self.evaluate(level - 1)
-            
-            if TokenType.EQUAL in EXPRESSION_PRECEDENCE[level]:
-                if self.match(EXPRESSION_PRECEDENCE[level]):
-                    operator = self.previous()
-                    right = self.evaluate(level) 
-                    left = Binary(left, operator, right)
-            
-            else:
-                while self.match(EXPRESSION_PRECEDENCE[level]):
-                    operator = self.previous()
-                    right = self.evaluate(level - 1)
-                    left = Binary(left, operator, right)
+            while self.match(EXPRESSION_PRECEDENCE[level]):
+                operator = self.previous()
+                right = self.evaluate(level - 1)
+                left = Binary(left, operator, right)
             
             return left
     
@@ -105,6 +120,5 @@ class Expression_Parser:
 
 
     def at_end(self):
-        return self.tokens[self.current] == TokenType.SEMICOLON or\
-            self.tokens[self.current].type == TokenType.EOF
+        return self.tokens[self.current] in [TokenType.SEMICOLON, TokenType.EOF]
     

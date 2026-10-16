@@ -152,3 +152,41 @@ class Binary(Expression):
             f"\n├── Operator: {self.operator.lexeme}" +\
             f"\n└── Expression:{temp2}"
         return out
+
+
+
+class Trinary(Expression):
+    def __init__(self, left_expression: Expression, left_operator: Token, middle_expression: Expression, right_operator: Token, right_expression: Expression):
+        if not isinstance(left_expression, Expression):
+            raise TypeError
+        if left_operator.type != TokenType.QUESTION:
+            raise TypeError
+        if not isinstance(middle_expression, Expression):
+            raise TypeError
+        if right_operator.type != TokenType.COLON:
+            raise TypeError        
+        if not (isinstance(right_expression, Expression) or right_expression is None):
+            raise TypeError
+        self.left = left_expression
+        self.left_operator = left_operator
+        self.middle = middle_expression
+        self.right_operator = right_operator
+        self.right = right_expression
+    
+    def __str__(self):
+        return f"({self.left_operator.lexeme} {self.left} {self.middle} {self.right})"
+    
+    def RPN(self):
+        return f"{self.left.RPN()} {self.middle.RPN()} {self.right.RPN()} {self.left_operator.lexeme}"
+    
+    def display(self):
+        out = f"Trinary:" +\
+         "\n├── Expression:" +\
+        f"\n│   └── {self.left.display().replace('\n', '\n│       ')}" +\
+        f"\n├── Operator: {self.left_operator.lexeme}" +\
+         "\n├── Expression:" +\
+        f"\n│   └── {self.middle.display().replace('\n', '\n│       ')}" +\
+        f"\n├── Operator: {self.right_operator.lexeme}" +\
+         "\n└── Expression:" +\
+        f"\n    └── {self.right.display().replace('\n', '\n        ')}"
+        return out    
