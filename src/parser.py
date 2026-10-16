@@ -122,5 +122,5 @@ class Parser:
 
 
     def at_end(self):
-        return self.tokens[self.current] in [TokenType.SEMICOLON, TokenType.EOF]
+        return self.tokens[self.current].type in [TokenType.SEMICOLON, TokenType.EOF]
     
