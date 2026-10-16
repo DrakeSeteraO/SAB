@@ -261,6 +261,7 @@ BINARY_OPERATORS = {
     TokenType.XOR_EQUAL,
     TokenType.OR_EQUAL,
     TokenType.AND_EQUAL,
+    TokenType.STAR_STAR
 }
 
 

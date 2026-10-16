@@ -67,6 +67,7 @@ class Parser:
             if self.match([TokenType.QUESTION]):
                 left_operator = self.previous()
                 middle = self.evaluate(level - 1)
+                right_operator = Token(TokenType.COLON, ':')
                 right = None
                 if self.match([TokenType.COLON]):
                     right_operator = self.previous()
