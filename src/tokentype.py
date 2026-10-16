@@ -250,6 +250,15 @@ BINARY_OPERATORS = {
     TokenType.EQUAL_EQUAL,
     TokenType.AND_AND,
     TokenType.OR_OR,
+    TokenType.EQUAL,
+    TokenType.PLUS_EQUAL,
+    TokenType.MINUS_EQUAL,
+    TokenType.MULT_EQUAL,
+    TokenType.DIV_EQUAL,
+    TokenType.MOD_EQUAL,
+    TokenType.XOR_EQUAL,
+    TokenType.OR_EQUAL,
+    TokenType.AND_EQUAL,
 }
 
 
