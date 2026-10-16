@@ -56,8 +56,87 @@ def test_3():
     assert str(tree) == '(+ (* (~ (group (/ 5 2))) 2) 50)' 
     
     
-        
+ 
+def test_4():
+    # 10 >= 5 == true;
+    tokens = [Token(TokenType.INTEGER, '10', '10'),
+              Token(TokenType.GREATER_EQUAL, '>='),
+              Token(TokenType.INTEGER, '5', '5'),
+              Token(TokenType.EQUAL_EQUAL, '=='),
+              Token(TokenType.TRUE, 'true', 'true'),
+              Token(TokenType.SEMICOLON, ';')]
+    
+    tree = Expression_Parser(tokens).parse()
+    assert str(tree) == '(== (>= 10 5) true)'
+
+
+
+def test_5():
+    # 1 << 2 | 3 & 4;
+    tokens = [Token(TokenType.INTEGER, '1', '1'),
+              Token(TokenType.SHIFT_LEFT, '<<'),
+              Token(TokenType.INTEGER, '2', '2'),
+              Token(TokenType.OR, '|'),
+              Token(TokenType.INTEGER, '3', '3'),
+              Token(TokenType.AND, '&'),
+              Token(TokenType.INTEGER, '4', '4'),
+              Token(TokenType.SEMICOLON, ';')]
+    
+    tree = Expression_Parser(tokens).parse()
+    assert str(tree) == '(| (<< 1 2) (& 3 4))'
+
+
+
+def test_6():
+    # !true && false || x;
+    tokens = [Token(TokenType.BOOL_NOT, '!'),
+              Token(TokenType.TRUE, 'true', 'true'),
+              Token(TokenType.AND_AND, '&&'),
+              Token(TokenType.FALSE, 'false', 'false'),
+              Token(TokenType.OR_OR, '||'),
+              Token(TokenType.IDENTIFIER, 'x', 'x'),
+              Token(TokenType.SEMICOLON, ';')]
+    
+    tree = Expression_Parser(tokens).parse()
+    assert str(tree) == '(|| (&& (! true) false) x)'
+
+
+
+def test_7():
+    # a = b = 10;
+    tokens = [Token(TokenType.IDENTIFIER, 'a', 'a'),
+              Token(TokenType.EQUAL, '='),
+              Token(TokenType.IDENTIFIER, 'b', 'b'),
+              Token(TokenType.EQUAL, '='),
+              Token(TokenType.INTEGER, '10', '10'),
+              Token(TokenType.SEMICOLON, ';')]
+    
+    tree = Expression_Parser(tokens).parse()
+    assert str(tree) == '(= a (= b 10))'
+
+
+
+def test_8():
+    # -5 - -3;
+    # Validates that Unary negative and Binary subtraction context does not conflict
+    tokens = [Token(TokenType.MINUS, '-'),
+              Token(TokenType.INTEGER, '5', '5'),
+              Token(TokenType.MINUS, '-'),
+              Token(TokenType.MINUS, '-'),
+              Token(TokenType.INTEGER, '3', '3'),
+              Token(TokenType.SEMICOLON, ';')]
+    
+    tree = Expression_Parser(tokens).parse()
+    assert str(tree) == '(- (- 5) (- 3))'
+
+
+
 if __name__ == '__main__':
     test_1()
     test_2()
     test_3()
+    test_4()
+    test_5()
+    test_6()
+    test_7()
+    test_8()       

@@ -239,6 +239,9 @@ BINARY_OPERATORS = {
     TokenType.PERCENT,
     TokenType.LESS,
     TokenType.GREATER,
+    TokenType.GREATER_EQUAL, 
+    TokenType.LESS_EQUAL,
+    TokenType.BOOL_NOT_EQUAL,
     TokenType.AND,
     TokenType.OR,
     TokenType.XOR,
@@ -247,7 +250,6 @@ BINARY_OPERATORS = {
     TokenType.EQUAL_EQUAL,
     TokenType.AND_AND,
     TokenType.OR_OR,
-    TokenType.STAR_STAR
 }
 
 
