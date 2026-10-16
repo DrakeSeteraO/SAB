@@ -33,6 +33,8 @@ class Parser:
     
     def parse(self):
         temp = self.evaluate(LAST_LEVEL)
+        if not self.at_end():
+            raise SyntaxError(f"Unexpected trailing token '{self.tokens[self.current].lexeme}' at line {self.tokens[self.current].line}, column {self.tokens[self.current].column}")
         self.current = 0
         return temp
     
@@ -66,7 +68,7 @@ class Parser:
                 left_operator = self.previous()
                 middle = self.evaluate(level - 1)
                 right = None
-                if self.match([TokenType.Colon]):
+                if self.match([TokenType.COLON]):
                     right_operator = self.previous()
                     right = self.evaluate(level - 1)
                 return Trinary(left, left_operator, middle, right_operator, right)

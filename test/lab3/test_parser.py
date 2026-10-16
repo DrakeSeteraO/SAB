@@ -130,6 +130,29 @@ def test_8():
     assert str(tree) == '(- (- 5) (- 3))'
 
 
+def test_9():
+    # x == 3 ? 1 + 2 + 3 : 32 / 5 + 1;
+    tokens = [Token(TokenType.IDENTIFIER, 'x', 'x'),
+              Token(TokenType.EQUAL_EQUAL, '=='),
+              Token(TokenType.INTEGER, '3', '3'),
+              Token(TokenType.QUESTION, '?'),
+              Token(TokenType.INTEGER, '1', '1'),
+              Token(TokenType.PLUS, '+'),
+              Token(TokenType.INTEGER, '2', '2'),
+              Token(TokenType.PLUS, '+'),
+              Token(TokenType.INTEGER, '3', '3'),
+              Token(TokenType.COLON, ':'),
+              Token(TokenType.INTEGER, '32', '32'),
+              Token(TokenType.SLASH, '/'),
+              Token(TokenType.INTEGER, '5', '5'),
+              Token(TokenType.PLUS, '+'),
+              Token(TokenType.INTEGER, '1', '1'),
+              Token(TokenType.SEMICOLON, ';')]
+    
+    tree = Parser(tokens).parse()
+    assert str(tree) == '(? (== x 3) (+ (+ 1 2) 3) (+ (/ 32 5) 1))'
+
+
 
 if __name__ == '__main__':
     test_1()
@@ -139,4 +162,5 @@ if __name__ == '__main__':
     test_5()
     test_6()
     test_7()
-    test_8()       
+    test_8()   
+    test_9()    
