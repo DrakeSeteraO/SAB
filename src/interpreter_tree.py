@@ -5,19 +5,16 @@ from sab_token import Token
 
 class Expression:
     def __init__(self, type: str):
-        self.type
-    
+        self.type = type
+
     def __str__(self):
         pass
-    
+
     def RPN(self):
         pass
-    
+
     def display(self):
         pass
-    
-    def type(self):
-        return self.type
         
 
 

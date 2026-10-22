@@ -1,4 +1,3 @@
-from operations import *
 from enum import Enum, auto
 
 
@@ -221,6 +220,43 @@ LITERAL_TYPES = {
 
 
 
+OPERATOR_VAL_TYPE = {
+    TokenType.PLUS: (int, float, str),
+    TokenType.MINUS: (int, float),
+    TokenType.STAR: (int, float),
+    TokenType.SLASH: (int, float),
+    TokenType.PERCENT: (int, float),
+    TokenType.LESS: (int, float),
+    TokenType.GREATER: (int, float),
+    TokenType.GREATER_EQUAL: (int, float), 
+    TokenType.LESS_EQUAL: (int, float),
+    TokenType.BOOL_NOT_EQUAL: (int, float, str, bool),
+    TokenType.AND: int,
+    TokenType.OR: int,
+    TokenType.XOR: int,
+    TokenType.SHIFT_LEFT: int,
+    TokenType.SHIFT_RIGHT: int,
+    TokenType.EQUAL_EQUAL: (int, float, str, bool),
+    TokenType.AND_AND: bool,
+    TokenType.OR_OR: bool,
+    TokenType.EQUAL: (int, float, str, bool),
+    TokenType.PLUS_EQUAL: (int, float),
+    TokenType.MINUS_EQUAL: (int, float),
+    TokenType.MULT_EQUAL: (int, float),
+    TokenType.DIV_EQUAL: (int, float),
+    TokenType.MOD_EQUAL: (int, float),
+    TokenType.XOR_EQUAL: int,
+    TokenType.OR_EQUAL: int,
+    TokenType.AND_EQUAL: int,
+    TokenType.STAR_STAR: (int, float)
+}
+
+
+
+from operations import *
+
+
+
 UNARY_OPERATIONS = {
     TokenType.PLUS: python_unary,
     TokenType.PLUS_PLUS: plus_plus,
@@ -235,34 +271,34 @@ UNARY_OPERATIONS = {
 
 
 BINARY_OPERATIONS = {
-    TokenType.PLUS,
-    TokenType.MINUS,
-    TokenType.STAR,
-    TokenType.SLASH,
-    TokenType.PERCENT,
-    TokenType.LESS,
-    TokenType.GREATER,
-    TokenType.GREATER_EQUAL, 
-    TokenType.LESS_EQUAL,
-    TokenType.BOOL_NOT_EQUAL,
-    TokenType.AND,
-    TokenType.OR,
-    TokenType.XOR,
-    TokenType.SHIFT_LEFT,
-    TokenType.SHIFT_RIGHT,
-    TokenType.EQUAL_EQUAL,
-    TokenType.AND_AND,
-    TokenType.OR_OR,
-    TokenType.EQUAL,
-    TokenType.PLUS_EQUAL,
-    TokenType.MINUS_EQUAL,
-    TokenType.MULT_EQUAL,
-    TokenType.DIV_EQUAL,
-    TokenType.MOD_EQUAL,
-    TokenType.XOR_EQUAL,
-    TokenType.OR_EQUAL,
-    TokenType.AND_EQUAL,
-    TokenType.STAR_STAR
+    TokenType.PLUS: python_binary,
+    TokenType.MINUS: python_binary,
+    TokenType.STAR: python_binary,
+    TokenType.SLASH: python_binary,
+    TokenType.PERCENT: python_binary,
+    TokenType.LESS: python_binary,
+    TokenType.GREATER: python_binary,
+    TokenType.GREATER_EQUAL: python_binary, 
+    TokenType.LESS_EQUAL: python_binary,
+    TokenType.BOOL_NOT_EQUAL: python_binary,
+    TokenType.AND: python_binary,
+    TokenType.OR: python_binary,
+    TokenType.XOR: python_binary,
+    TokenType.SHIFT_LEFT: python_binary,
+    TokenType.SHIFT_RIGHT: python_binary,
+    TokenType.EQUAL_EQUAL: python_binary,
+    TokenType.AND_AND: bool_and,
+    TokenType.OR_OR: bool_or,
+    TokenType.EQUAL: equal_assign,
+    TokenType.PLUS_EQUAL: op_assign,
+    TokenType.MINUS_EQUAL: op_assign,
+    TokenType.MULT_EQUAL: op_assign,
+    TokenType.DIV_EQUAL: op_assign,
+    TokenType.MOD_EQUAL: op_assign,
+    TokenType.XOR_EQUAL: op_assign,
+    TokenType.OR_EQUAL: op_assign,
+    TokenType.AND_EQUAL: op_assign,
+    TokenType.STAR_STAR: python_binary
 }
 
 
@@ -280,7 +316,7 @@ EXPRESSION_PRECEDENCE = [
         # Unary Operators
         TokenType.PLUS_PLUS,
         TokenType.MINUS_MINUS,
-        TokenType.PLUS_PLUS,
+        TokenType.PLUS,
         TokenType.MINUS,
         TokenType.NOT,
         TokenType.BOOL_NOT,

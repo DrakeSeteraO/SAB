@@ -42,13 +42,11 @@ class Parser:
     
     def evaluate(self, level: int):
         if level <= 0:
+            self.match([TokenType.QUOTE, TokenType.DOUBLE_QUOTE])
             if self.match(TOKEN_TO_LITERAL.keys()):
-                return TOKEN_TO_LITERAL[self.previous().type](self.previous())
-            
-            if self.match([TokenType.LEFT_PAREN]):
-                inner = self.evaluate(LAST_LEVEL)
-                self.match([TokenType.RIGHT_PAREN])
-                return Grouping(inner)
+                node = TOKEN_TO_LITERAL[self.previous().type](self.previous())
+                self.match([TokenType.QUOTE, TokenType.DOUBLE_QUOTE])
+                return node
             
             raise ValueError("Expected a value")
         

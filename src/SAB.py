@@ -2,6 +2,7 @@ import argparse
 from how_to_use_interpreter import USE, HELP
 from scanner import Scanner
 from parser import Parser
+from interpreter import Interpreter
 
 
 
@@ -46,7 +47,8 @@ def perform_instruction(scanner: Scanner, instruction: str) -> list[bool, str]:
     try:
         tokens = scanner.scan(instruction + ';')
         parser = Parser(tokens).parse()
-        print(parser)
+        _, output = Interpreter().get_expression(parser)
+        print(output)
     except Exception as e:
         return True, str(e)
     return False, ''
