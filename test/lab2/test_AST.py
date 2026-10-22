@@ -39,6 +39,7 @@ def test_AST_1():
 ├── Operator: *
 └── Expression:
     └── Grouping:
+        └── Expression:
             └── Literal: 45.67"""
 
 
@@ -134,12 +135,13 @@ def test_AST_4():
 ├── Operator: !
 └── Expression:
     └── Grouping:
-        └── Binary:
-        ├── Expression:
-        │   └── Literal: 5
-        ├── Operator: >
         └── Expression:
-            └── Literal: 3"""
+            └── Binary:
+                ├── Expression:
+                │   └── Literal: 5
+                ├── Operator: >
+                └── Expression:
+                    └── Literal: 3"""
 
 
 
