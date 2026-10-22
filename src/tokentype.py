@@ -353,6 +353,8 @@ EXPRESSION_PRECEDENCE = [
         TokenType.LESS_EQUAL, 
         TokenType.GREATER, 
         TokenType.GREATER_EQUAL,
+    },
+    {
         TokenType.EQUAL_EQUAL, 
         TokenType.BOOL_NOT_EQUAL
     },

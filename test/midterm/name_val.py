@@ -1,0 +1,1 @@
+print([ord(i) - 96 for i in 'seterase'])

@@ -48,6 +48,11 @@ class Parser:
                 self.match([TokenType.QUOTE, TokenType.DOUBLE_QUOTE])
                 return node
             
+            if self.match([TokenType.LEFT_PAREN]):
+                expression = self.evaluate(LAST_LEVEL)
+                self.match([TokenType.RIGHT_PAREN])
+                return Grouping(expression)
+            
             raise ValueError("Expected a value")
         
         

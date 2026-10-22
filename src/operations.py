@@ -9,10 +9,26 @@ def type_convert(val, new_type: object):
     is_target_float = (new_type is float) or (isinstance(new_type, tuple) and float in new_type)
 
     if isinstance(val, bool):
-        if is_target_bool:
-            return True, val
+        if is_target_float:
+            return True, 1.0 if val else 0.0
         if is_target_int:
             return True, 1 if val else 0
+        if is_target_bool:
+            return True, val
+    if isinstance(val, int):
+        if is_target_float:
+            return True, float(val)
+        if is_target_int:
+            return True, val
+        if is_target_bool:
+            return True, 1 if val != 0 else 0
+    if isinstance(val, float):
+        if is_target_float:
+            return True, val
+        if is_target_int:
+            return True, int(val)
+        if is_target_bool:
+            return True, 1 if val != 0.0 else 0
         return False, val
 
     if isinstance(val, (int, float, Fraction)) and new_type is bool:

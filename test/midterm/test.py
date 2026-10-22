@@ -8,7 +8,7 @@ from interpreter import Interpreter
 
 
 def main():
-    code = "1 + 2 / 3 *  4 == 23"
+    code = "(0.4)"
     print(f"Input: {code}\n")
 
     scanner = Scanner()
