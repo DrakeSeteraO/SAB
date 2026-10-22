@@ -99,9 +99,10 @@ class Grouping(Expression):
         return self.expression.RPN()
     
     def display(self):
-        temp = self.expression.display()
-        temp = 'Grouping:\n    └── ' + temp.replace('\n','\n    ')
-        return temp
+        out = f"Grouping:" +\
+         "\n└── Expression:" +\
+        f"\n    └── {self.expression.display().replace('\n', '\n        ')}"
+        return out
 
 
 
@@ -121,9 +122,11 @@ class Unary(Expression):
         return f"{self.expression.RPN()} .{self.operator.lexeme}"
     
     def display(self):
-        temp1 = f"Unary:\n├── Operator: {self.operator.lexeme}\n└── Expression:"
-        temp2 = '\n    └── '+ self.expression.display().replace('\n', '\n    ')
-        return temp1 + temp2 
+        out = f"Unary:" +\
+        f"\n├── Operator: {self.operator.lexeme}" +\
+         "\n└── Expression:" +\
+        f"\n    └── {self.expression.display().replace('\n', '\n        ')}"
+        return out
     
 
 
@@ -146,12 +149,13 @@ class Binary(Expression):
         return f"{self.left.RPN()} {self.right.RPN()} {self.operator.lexeme}"
     
     def display(self):
-        temp1 = '\n│   └── '+self.left.display().replace('\n', '\n│       ')
-        temp2 = '\n    └── '+self.right.display().replace('\n', '\n        ')
-        out = f"Binary:\n├── Expression:{temp1}" +\
-            f"\n├── Operator: {self.operator.lexeme}" +\
-            f"\n└── Expression:{temp2}"
-        return out
+        out = f"Binary:" +\
+         "\n├── Expression:" +\
+        f"\n│   └── {self.left.display().replace('\n', '\n│       ')}" +\
+        f"\n├── Operator: {self.operator.lexeme}" +\
+         "\n└── Expression:" +\
+        f"\n    └── {self.right.display().replace('\n', '\n        ')}"
+        return out    
 
 
 

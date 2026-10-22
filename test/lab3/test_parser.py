@@ -150,6 +150,7 @@ def test_9():
               Token(TokenType.SEMICOLON, ';')]
     
     tree = Parser(tokens).parse()
+    print(tree.display())
     assert str(tree) == '(? (== x 3) (+ (+ 1 2) 3) (+ (/ 32 5) 1))'
 
 
