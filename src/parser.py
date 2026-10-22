@@ -1,5 +1,5 @@
 from tokentype import *
-from abstract_syntax_tree import *
+from interpreter_tree import *
 
 
 
@@ -54,7 +54,7 @@ class Parser:
         
         
         elif level == 1:
-            if self.match(UNARY_OPERATORS):
+            if self.match(UNARY_OPERATIONS.keys()):
                 operator = self.previous()
                 right = self.evaluate(level)
                 return Unary(operator, right)

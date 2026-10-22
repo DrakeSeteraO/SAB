@@ -19,6 +19,10 @@ def test_1():
     
     tree = Parser(tokens).parse()
     assert str(tree) == '(+ 1 2)' 
+    
+    from interpreter import Interpreter
+    op = Interpreter()
+    print(op.get_expression(tree))
 
 
 

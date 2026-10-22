@@ -1,9 +1,12 @@
-from tokentype import TokenType, LITERAL_TYPES, UNARY_OPERATORS, BINARY_OPERATORS
+from tokentype import TokenType, LITERAL_TYPES, UNARY_OPERATIONS, BINARY_OPERATIONS
 from sab_token import Token
 
 
 
 class Expression:
+    def __init__(self, type: str):
+        self.type
+    
     def __str__(self):
         pass
     
@@ -12,11 +15,16 @@ class Expression:
     
     def display(self):
         pass
+    
+    def type(self):
+        return self.type
+        
 
 
 
 class Literal(Expression):
     def __init__(self, val_token: Token):
+        super().__init__('Literal')
         if val_token.type not in LITERAL_TYPES:
             raise TypeError
         self.val_token = val_token
@@ -88,6 +96,7 @@ class Function_Node(Literal):
 
 class Grouping(Expression):
     def __init__(self, expression: Expression):
+        super().__init__('Grouping')
         if not isinstance(expression, Expression):
             raise TypeError
         self.expression = expression
@@ -108,7 +117,8 @@ class Grouping(Expression):
 
 class Unary(Expression):
     def __init__(self, operator: Token, expression: Expression):
-        if operator.type not in UNARY_OPERATORS:
+        super().__init__('Unary')
+        if operator.type not in UNARY_OPERATIONS.keys():
             raise TypeError
         if not isinstance(expression, Expression):
             raise TypeError
@@ -132,9 +142,10 @@ class Unary(Expression):
 
 class Binary(Expression):
     def __init__(self, left_expression: Expression, operator: Token, right_expression: Expression):
+        super().__init__('Binary')
         if not isinstance(left_expression, Expression):
             raise TypeError
-        if operator.type not in BINARY_OPERATORS:
+        if operator.type not in BINARY_OPERATIONS.keys():
             raise TypeError
         if not isinstance(right_expression, Expression):
             raise TypeError
@@ -161,6 +172,7 @@ class Binary(Expression):
 
 class Trinary(Expression):
     def __init__(self, left_expression: Expression, left_operator: Token, middle_expression: Expression, right_operator: Token, right_expression: Expression):
+        super().__init__('Trinary')
         if not isinstance(left_expression, Expression):
             raise TypeError
         if left_operator.type != TokenType.QUESTION:

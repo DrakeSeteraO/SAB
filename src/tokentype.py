@@ -1,3 +1,4 @@
+from operations import *
 from enum import Enum, auto
 
 
@@ -220,20 +221,20 @@ LITERAL_TYPES = {
 
 
 
-UNARY_OPERATORS = {
-    TokenType.PLUS,
-    TokenType.PLUS_PLUS,
-    TokenType.MINUS,
-    TokenType.MINUS_MINUS,
-    TokenType.NOT,
-    TokenType.BOOL_NOT,
-    TokenType.ADDRESS,
-    TokenType.AT,
+UNARY_OPERATIONS = {
+    TokenType.PLUS: python_unary,
+    TokenType.PLUS_PLUS: plus_plus,
+    TokenType.MINUS: python_unary,
+    TokenType.MINUS_MINUS: minus_minus,
+    TokenType.NOT: python_unary,
+    TokenType.BOOL_NOT: bool_not,
+    TokenType.ADDRESS: None,
+    TokenType.AT: None,
 }
 
 
 
-BINARY_OPERATORS = {
+BINARY_OPERATIONS = {
     TokenType.PLUS,
     TokenType.MINUS,
     TokenType.STAR,
