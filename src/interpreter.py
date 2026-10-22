@@ -10,6 +10,13 @@ class Interpreter:
 
 
 
+    def format_val(self, val) -> str:
+        if isinstance(val, bool):
+            return "true" if val else "false"
+        return str(val)
+
+
+
     def get_expression(self, expression: Expression):
         EXPRESSION_EVALUATION = {
             'Literal' : self.literal_operation,
@@ -18,7 +25,18 @@ class Interpreter:
             'Binary' : self.binary_operation,
             'Trinary' : self.trinary_operation
         }
-        return EXPRESSION_EVALUATION[expression.type](expression)
+        can_eval, result = EXPRESSION_EVALUATION[expression.type](expression)
+        expression.eval_result = self.format_val(result)
+
+        if expression.type == 'Binary':
+            print(f"{expression.left.eval_result} {expression.operator.lexeme} {expression.right.eval_result} = {expression.eval_result}")
+        elif expression.type == 'Unary':
+            print(f"{expression.operator.lexeme}{expression.expression.eval_result} = {expression.eval_result}")
+        elif expression.type == 'Trinary':
+            right_res = expression.right.eval_result if expression.right is not None else "None"
+            print(f"{expression.left.eval_result} ? {expression.middle.eval_result} : {right_res} = {expression.eval_result}")
+
+        return can_eval, result
         
         
         

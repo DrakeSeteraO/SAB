@@ -6,16 +6,16 @@ from sab_token import Token
 class Expression:
     def __init__(self, type: str):
         self.type = type
-
+        self.eval_result = None
+    
     def __str__(self):
         pass
-
+    
     def RPN(self):
         pass
-
+    
     def display(self):
         pass
-        
 
 
 
@@ -33,6 +33,8 @@ class Literal(Expression):
         return self.val_token.lexeme
     
     def display(self):
+        if self.eval_result is not None:
+            return f"Literal({self.val_token.lexeme})"
         return f"Literal: {self.val_token.lexeme}"
 
 
@@ -105,7 +107,7 @@ class Grouping(Expression):
         return self.expression.RPN()
     
     def display(self):
-        out = f"Grouping:" +\
+        out = f"Grouping{f"  -> {self.eval_result}" if self.eval_result is not None else ''}:" +\
          "\n└── Expression:" +\
         f"\n    └── {self.expression.display().replace('\n', '\n        ')}"
         return out
@@ -129,7 +131,7 @@ class Unary(Expression):
         return f"{self.expression.RPN()} .{self.operator.lexeme}"
     
     def display(self):
-        out = f"Unary:" +\
+        out = f"Unary:{f"({self.operator.lexeme}) -> {self.eval_result}" if self.eval_result is not None else ''}" +\
         f"\n├── Operator: {self.operator.lexeme}" +\
          "\n└── Expression:" +\
         f"\n    └── {self.expression.display().replace('\n', '\n        ')}"
@@ -157,7 +159,7 @@ class Binary(Expression):
         return f"{self.left.RPN()} {self.right.RPN()} {self.operator.lexeme}"
     
     def display(self):
-        out = f"Binary:" +\
+        out = f"Binary{f" ({self.operator.lexeme}) -> {self.eval_result}" if self.eval_result is not None else ""}:" +\
          "\n├── Expression:" +\
         f"\n│   └── {self.left.display().replace('\n', '\n│       ')}" +\
         f"\n├── Operator: {self.operator.lexeme}" +\
@@ -193,7 +195,7 @@ class Trinary(Expression):
         return f"{self.left.RPN()} {self.middle.RPN()} {self.right.RPN()} {self.left_operator.lexeme}"
     
     def display(self):
-        out = f"Trinary:" +\
+        out = f"Trinary{f" ({self.left_operator.lexeme}) -> {self.eval_result}" if  self.eval_result is not None else ''}:" +\
          "\n├── Expression:" +\
         f"\n│   └── {self.left.display().replace('\n', '\n│       ')}" +\
         f"\n├── Operator: {self.left_operator.lexeme}" +\
@@ -202,4 +204,4 @@ class Trinary(Expression):
         f"\n├── Operator: {self.right_operator.lexeme}" +\
          "\n└── Expression:" +\
         f"\n    └── {self.right.display().replace('\n', '\n        ')}"
-        return out    
+        return out
