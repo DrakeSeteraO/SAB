@@ -359,9 +359,6 @@ EXPRESSION_PRECEDENCE = [
         TokenType.BOOL_NOT_EQUAL
     },
     {
-        TokenType.BOOL_NOT
-    },
-    {
         TokenType.AND_AND
     },
     {
