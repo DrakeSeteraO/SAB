@@ -1,5 +1,5 @@
 from tokentype import *
-from interpreter_tree import *
+from expression_interpreter_tree import *
 
 
 
@@ -22,7 +22,7 @@ LAST_LEVEL = -1 % len(EXPRESSION_PRECEDENCE)
 
 
 
-class Parser:
+class Expression_Parser:
     def __init__(self, expression: list):
         if not isinstance(expression, list):
             raise TypeError
@@ -35,8 +35,9 @@ class Parser:
         temp = self.evaluate(LAST_LEVEL)
         if not self.at_end():
             raise SyntaxError(f"Unexpected trailing token '{self.tokens[self.current].lexeme}' at line {self.tokens[self.current].line}, column {self.tokens[self.current].column}")
+        cur = self.current + (1 if self.tokens[self.current].type == TokenType.SEMICOLON else 0)
         self.current = 0
-        return temp
+        return temp, cur
     
     
     

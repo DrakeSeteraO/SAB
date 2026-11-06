@@ -1,7 +1,7 @@
 import argparse
 from how_to_use_interpreter import USE, HELP
 from scanner import Scanner
-from parser import Parser
+from expression_parser import Expression_Parser
 from interpreter import Interpreter
 
 
@@ -46,31 +46,9 @@ def retrieve_arguments():
 def perform_instruction(scanner: Scanner, instruction: str) -> list[bool, str]:
     try:
         scanner = Scanner()
-        tokens = scanner.scan(instruction + ";")
-        print("Scanning results:")
-        for token in tokens:
-            print(token)
-        print()
-
-        tree = Parser(tokens).parse()
-        print("Lisp Representation:")
-        print(str(tree))
-        print()
-
-        print("AST:")
-        print(tree.display())
-        print()
-
-        print("Evaluation Order:")
-        Interpreter().get_expression(tree)
-        print()
-        
-        print("Intermediate Results:")
-        print(tree.display())
-        # tokens = scanner.scan(instruction + ';')
-        # parser = Parser(tokens).parse()
-        # _, output = Interpreter().get_expression(parser)
-        # print(output)
+        temp = instruction + ";"
+        tokens = scanner.scan(temp.replace(';;', ';'))
+        Interpreter(tokens, True).parse()
     except Exception as e:
         return True, str(e)
     return False, ''
@@ -81,8 +59,7 @@ def compile_file(scanner: Scanner, file_name: str) -> list[bool, str]:
     try:
         with open(file_name, 'r') as file:
             tokens = scanner.scan(file.read())
-            parser = Parser(tokens).parse()
-            print(parser)
+            parser, _ = Expression_Parser(tokens).parse()
     except Exception as e:
         return True, str(e)
     return False, ''

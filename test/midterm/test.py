@@ -3,8 +3,8 @@ import sys
 sys.path.append("src")
 
 from scanner import Scanner
-from parser import Parser
-from interpreter import Interpreter
+from expression_parser import Expression_Parser
+from expression_interpreter import Expression_Interpreter
 
 
 def main():
@@ -18,7 +18,7 @@ def main():
         print(token)
     print()
 
-    tree = Parser(tokens).parse()
+    tree = Expression_Parser(tokens).parse()
     print("Lisp Representation:")
     print(str(tree))
     print()
@@ -28,7 +28,7 @@ def main():
     print()
 
     print("Evaluation Order:")
-    Interpreter().get_expression(tree)
+    Expression_Interpreter().get_expression(tree)
     print()
     
     print("Intermediate Results:")

@@ -252,11 +252,7 @@ OPERATOR_VAL_TYPE = {
 }
 
 
-
 from operations import *
-
-
-
 UNARY_OPERATIONS = {
     TokenType.PLUS: python_unary,
     TokenType.PLUS_PLUS: plus_plus,
@@ -380,3 +376,9 @@ EXPRESSION_PRECEDENCE = [
         TokenType.AND_EQUAL
     }    
 ]
+
+
+
+STATEMENT_TOKEN = {
+    TokenType.PRINT
+}

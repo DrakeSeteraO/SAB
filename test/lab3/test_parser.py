@@ -6,7 +6,7 @@ sys.path.append("src")
 import pytest
 from tokentype import TokenType
 from sab_token import Token
-from parser import Parser
+from expression_parser import Expression_Parser
 
 
 
@@ -17,11 +17,11 @@ def test_1():
               Token(TokenType.INTEGER,'2','2'),
               Token(TokenType.SEMICOLON,';')]
     
-    tree = Parser(tokens).parse()
+    tree = Expression_Parser(tokens).parse()
     assert str(tree) == '(+ 1 2)' 
     
-    from interpreter import Interpreter
-    op = Interpreter()
+    from expression_interpreter import Expression_Interpreter
+    op = Expression_Interpreter()
     print(op.get_expression(tree))
 
 
@@ -37,7 +37,7 @@ def test_2():
               Token(TokenType.INTEGER,'4','4'),              
               Token(TokenType.SEMICOLON,';')]
     
-    tree = Parser(tokens).parse()
+    tree = Expression_Parser(tokens).parse()
     assert str(tree) == '(+ (- (+ 1 2) 3) 4)' 
     
     
@@ -56,7 +56,7 @@ def test_3():
               Token(TokenType.INTEGER,'50','50'),                     
               Token(TokenType.SEMICOLON,';')]
     
-    tree = Parser(tokens).parse()
+    tree = Expression_Parser(tokens).parse()
     assert str(tree) == '(+ (* (~ (group (/ 5 2))) 2) 50)' 
     
     
@@ -70,7 +70,7 @@ def test_4():
               Token(TokenType.TRUE, 'true', 'true'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Parser(tokens).parse()
+    tree = Expression_Parser(tokens).parse()
     assert str(tree) == '(== (>= 10 5) true)'
 
 
@@ -86,7 +86,7 @@ def test_5():
               Token(TokenType.INTEGER, '4', '4'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Parser(tokens).parse()
+    tree = Expression_Parser(tokens).parse()
     assert str(tree) == '(| (<< 1 2) (& 3 4))'
 
 
@@ -101,7 +101,7 @@ def test_6():
               Token(TokenType.IDENTIFIER, 'x', 'x'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Parser(tokens).parse()
+    tree = Expression_Parser(tokens).parse()
     assert str(tree) == '(|| (&& (! true) false) x)'
 
 
@@ -115,7 +115,7 @@ def test_7():
               Token(TokenType.INTEGER, '10', '10'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Parser(tokens).parse()
+    tree = Expression_Parser(tokens).parse()
     assert str(tree) == '(= a (= b 10))'
 
 
@@ -130,7 +130,7 @@ def test_8():
               Token(TokenType.INTEGER, '3', '3'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Parser(tokens).parse()
+    tree = Expression_Parser(tokens).parse()
     assert str(tree) == '(- (- 5) (- 3))'
 
 
@@ -153,7 +153,7 @@ def test_9():
               Token(TokenType.INTEGER, '1', '1'),
               Token(TokenType.SEMICOLON, ';')]
     
-    tree = Parser(tokens).parse()
+    tree = Expression_Parser(tokens).parse()
     assert str(tree) == '(? (== x 3) (+ (+ 1 2) 3) (+ (/ 32 5) 1))'
 
 

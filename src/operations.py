@@ -16,10 +16,10 @@ def type_convert(val, new_type: object):
         if is_target_bool:
             return True, val
     if isinstance(val, int):
-        if is_target_float:
-            return True, float(val)
         if is_target_int:
             return True, val
+        if is_target_float:
+            return True, float(val)
         if is_target_bool:
             return True, 1 if val != 0 else 0
     if isinstance(val, float):

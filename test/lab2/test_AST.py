@@ -4,7 +4,7 @@ sys.path.append("src")
 
 
 import pytest
-from interpreter_tree import *
+from expression_interpreter_tree import *
 from sab_token import Token
 
 
