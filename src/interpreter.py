@@ -16,10 +16,25 @@ class Interpreter:
 
     def parse(self):
         while not self.at_end():
-            if self.match(STATEMENT_TOKEN):
-                self.evaluate_statement()
-            else:
-                self.expression_statement()
+            try:
+                if self.match(STATEMENT_TOKEN):
+                    self.evaluate_statement()
+                else:
+                    self.expression_statement()
+            except (SyntaxError, ValueError) as e:
+                print(f"Syntax Error: {e}")
+                self.panic_mode()
+
+
+
+    def panic_mode(self):
+        self.advance()
+        while not self.at_end():
+            if self.previous().type == TokenType.SEMICOLON:
+                return
+            if self.tokens[self.current].type in STATEMENT_TOKEN:
+                return
+            self.advance()
   
   
   

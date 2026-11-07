@@ -51,10 +51,13 @@ class Expression_Parser:
             
             if self.match([TokenType.LEFT_PAREN]):
                 expression = self.evaluate(LAST_LEVEL)
-                self.match([TokenType.RIGHT_PAREN])
+                if not self.match([TokenType.RIGHT_PAREN]):
+                    cur_token = self.tokens[self.current]
+                    raise SyntaxError(f"Expected ')' at line {cur_token.line}, column {cur_token.column}")
                 return Grouping(expression)
             
-            raise ValueError("Expected a value")
+            cur_token = self.tokens[self.current]
+            raise SyntaxError(f"Expected a value at line {cur_token.line}, column {cur_token.column}")
         
         
         elif level == 1:
