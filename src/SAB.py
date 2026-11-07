@@ -59,7 +59,7 @@ def compile_file(scanner: Scanner, file_name: str) -> list[bool, str]:
     try:
         with open(file_name, 'r') as file:
             tokens = scanner.scan(file.read())
-            parser, _ = Expression_Parser(tokens).parse()
+            Interpreter(tokens, True).parse()
     except Exception as e:
         return True, str(e)
     return False, ''

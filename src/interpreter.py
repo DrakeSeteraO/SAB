@@ -36,7 +36,12 @@ class Interpreter:
         _, result = Expression_Interpreter().get_expression(tree)
         
         if self.interpret_mode:
-            print(result)
+            if result is None:
+                print('NULL')
+            elif isinstance(result, bool):
+                print('TRUE' if result else 'FALSE')
+            else:
+                print(result)
             
     
     
