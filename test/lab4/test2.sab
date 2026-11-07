@@ -1,5 +1,5 @@
 4 + 2;
 print "one";
-print true;
+print TRUE;
 print 1 + 2;
 print NULL;
