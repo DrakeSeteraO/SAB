@@ -1,12 +1,14 @@
 from expression_interpreter_tree import *
 from tokentype import TokenType, UNARY_OPERATIONS, BINARY_OPERATIONS
 from operations import python_trinary, type_convert
+from variable import Variable_Stack
 
 
 
 class Expression_Interpreter:
-    def __init__(self):
-        pass
+    def __init__(self, variable_stack: Variable_Stack, collapse_mode: bool = True):
+        self.variable_stack = variable_stack
+        self.collapse_mode = collapse_mode
 
 
 
@@ -67,7 +69,7 @@ class Expression_Interpreter:
         if isinstance(node, Raw_Node):
             return True, self.RAW_LITERAL[val.upper()]
         if isinstance(node, Variable_Node):
-            return False, val
+            return self.collapse_mode, self.variable_stack.get_variable(node.val_token)
         return False, 'None'
 
 

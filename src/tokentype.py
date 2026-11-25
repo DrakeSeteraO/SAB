@@ -380,5 +380,13 @@ EXPRESSION_PRECEDENCE = [
 
 
 STATEMENT_TOKEN = {
-    TokenType.PRINT
+    TokenType.PRINT,
+    TokenType.VAR,
+    TokenType.INT,
+    TokenType.CHAR,
+    TokenType.STR,
+    TokenType.FLOAT,
+    TokenType.HEX,
+    TokenType.BIN,
+    TokenType.LEFT_BRACE
 }

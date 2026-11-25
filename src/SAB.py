@@ -3,6 +3,7 @@ from how_to_use_interpreter import USE, HELP
 from scanner import Scanner
 from expression_parser import Expression_Parser
 from interpreter import Interpreter
+from variable import Variable_Stack
 
 
 
@@ -12,10 +13,11 @@ def main(file_name = None):
         args = retrieve_arguments()
         if len(args.filenames) == 0:
             scanner.compile_mode = False
+            variables = Variable_Stack()
             try:
                 while True:
                     user_input = input(">> ") 
-                    error, message = perform_instruction(scanner, user_input)
+                    error, message = perform_instruction(scanner, user_input, variables)
                     if error:
                         print(message)
             except KeyboardInterrupt:
@@ -43,12 +45,12 @@ def retrieve_arguments():
 
 
 
-def perform_instruction(scanner: Scanner, instruction: str) -> list[bool, str]:
+def perform_instruction(scanner: Scanner, instruction: str, variables: Variable_Stack) -> list[bool, str]:
     try:
         scanner = Scanner()
         temp = instruction + ";"
         tokens = scanner.scan(temp.replace(';;', ';'))
-        Interpreter(tokens, True).parse()
+        Interpreter(tokens, True, variables).parse()
     except Exception as e:
         return True, str(e)
     return False, ''

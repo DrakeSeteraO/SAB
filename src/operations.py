@@ -1,13 +1,17 @@
 from fractions import Fraction
 from tokentype import TokenType, OPERATOR_VAL_TYPE
 from sab_token import Token
+from variable import Variable
 
 
 def type_convert(val, new_type: object):
     is_target_bool = (new_type is bool) or (isinstance(new_type, tuple) and bool in new_type)
     is_target_int = (new_type is int) or (isinstance(new_type, tuple) and int in new_type)
     is_target_float = (new_type is float) or (isinstance(new_type, tuple) and float in new_type)
-
+    
+    if isinstance(val, Variable):
+        val = val.value
+        
     if isinstance(val, bool):
         if is_target_float:
             return True, 1.0 if val else 0.0
@@ -111,9 +115,11 @@ def bool_or(operator: Token, val1, val2):
 
 
 def equal_assign(operator: Token, val1, val2):
-    can_convert1, val1 = type_convert(val1, OPERATOR_VAL_TYPE[operator.type])
+    if not isinstance(val1, Variable):
+        raise ValueError(f"Value cannot be assigned to Variable '{val1}'")
     can_convert2, val2 = type_convert(val2, OPERATOR_VAL_TYPE[operator.type])
-    if can_convert1 and can_convert2:
+    if can_convert2:
+        val1.value = val2
         return True, val2
     return False, f"({operator.lexeme} {val1} {val2})"
 
