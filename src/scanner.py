@@ -78,23 +78,19 @@ class Scanner:
         var = self.code[self.i]
         start = self.i
         self.increment()
-        try:
-            while not self.code[self.i] in ['#', '\n']:
-                var += self.code[self.i]
-                self.increment()
-                
-            if self.code[self.i] == '#':
-                var += self.code[self.i]
-                self.increment()
-                
-            self.tokens.append(Token(tokentype=TokenType.COMMENT,
-                                    lexeme=var,
-                                    literal=None,
-                                    line=self.line,
-                                    column=start))
-        except Exception as e:
-            print(e)
-            raise IndexError
+        while self.i < len(self.code) and self.code[self.i] not in ['#', '\n', ';']:
+            var += self.code[self.i]
+            self.increment()
+            
+        if self.i < len(self.code) and self.code[self.i] in ['#', ';']:
+            var += self.code[self.i]
+            self.increment()
+            
+        self.tokens.append(Token(tokentype=TokenType.COMMENT,
+                                lexeme=var,
+                                literal=None,
+                                line=self.line,
+                                column=start))
     
     
                 

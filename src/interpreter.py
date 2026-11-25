@@ -8,7 +8,7 @@ from variable import Variable, Variable_Stack
 
 class Interpreter:
     def __init__(self, tokens: list[Token], interpret_mode=False, variables: Variable_Stack = None):
-        self.tokens = tokens
+        self.tokens = [t for t in tokens if t.type != TokenType.COMMENT]
         self.cur = 0
         self.instructions = []
         self.interpret_mode = interpret_mode
