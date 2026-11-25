@@ -1,0 +1,5 @@
+# Unopened bracket
+var x = "Hello";
+
+    print x;
+}

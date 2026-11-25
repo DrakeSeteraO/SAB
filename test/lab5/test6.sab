@@ -1,0 +1,2 @@
+print not_declared;
+5 = 10;

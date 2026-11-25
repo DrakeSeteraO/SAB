@@ -1,1 +1,5 @@
-# Unclosed bracket
+4 + 2;
+print "one";
+print TRUE;
+print 1 + 2;
+print NULL;

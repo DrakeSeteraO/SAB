@@ -1,0 +1,4 @@
+# redeclaring variable
+var x = 21;
+var x = 56;
+print x;
